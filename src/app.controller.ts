@@ -2,12 +2,15 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Param,
   Post,
   Query,
   Request,
+  Res,
 } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -20,9 +23,9 @@ export class AppController {
     return this.appService.getHello();
   }
   @Post()
-  getHi(@Body() test): string {
-    console.log('test', test);
-
-    return this.appService.getHello();
+  getHi(@Res() res: Response): void {
+    res.status(HttpStatus.OK).send({
+      test: '1',
+    });
   }
 }
